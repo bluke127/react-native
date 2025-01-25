@@ -20,6 +20,7 @@ const STORAGE_KEY = "@toDos";
 export default function App() {
   const [working, setWorking] = useState(true);
   const [text, setText] = useState("");
+  const [toDos,setToDos] = useState({})
   const travel = () => setWorking(false);
   const work = () => setWorking(true);
   const onChangeText = (payload) => {
@@ -31,20 +32,33 @@ export default function App() {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
   };
   const loadToDos = async () => {
-    const s = await AsyncStorage.getItem(STORAGE_KEY);
-    setToDos(JSON.parse(s));
+    try{
+
+      const s = await AsyncStorage.getItem(STORAGE_KEY);
+      setToDos(JSON.parse(s));
+      console.log(s,"ssss")
+    } catch(e){
+      console.log(e,"2323")
+    }
   };
   const addToDo = async () => {
-    if (text === "") {
-      return;
+    try{
+
+      console.log(1111,text)
+      if (text === "") {
+        return;
+      }
+      const newToDos = {
+        ...toDos,
+        [Date.now()]: { text, working },
+      };
+      setToDos(newToDos);
+      await saveToDos(newToDos);
+      console.log(2222)
+      setText("");
+    }catch(e){
+      console.log(e,"eee")
     }
-    const newToDos = {
-      ...toDos,
-      [Date.now()]: { text, working },
-    };
-    setToDos(newToDos);
-    await saveToDos(newToDos);
-    setText("");
   };
   useEffect(() => {
     loadToDos();
@@ -77,7 +91,7 @@ export default function App() {
         //키보드에서 return 버튼
           returnKeyType="done"
           //textarea같은거
-          multiline
+          // multiline
           onSubmitEditing={addToDo}
           onChangeText={onChangeText}
           value={text}

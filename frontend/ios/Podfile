@@ -82,5 +82,7 @@ target 'MatzipApp' do
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
       # // 2. 애플 실리콘 칩에서 unary_function 오류 해결을 위한 코드
       config.build_settings["GCC_PREPROCESSOR_DEFINITIONS"] ||= ["$(inherited)", "_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION"]
+    end
   end
+end
 end

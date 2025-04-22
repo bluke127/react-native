@@ -7,7 +7,8 @@ import {
   Dimensions,
   View,
 } from 'react-native';
-import {colors} from '../constants';
+
+import {colors} from '@/constants';
 
 interface CustomButtonProps extends PressableProps {
   label: string;
@@ -26,7 +27,6 @@ function CustomButton({
   ...props
 }: CustomButtonProps) {
   return (
-    // Pressable은 누를때마다 이미지 변경 가능
     <Pressable
       disabled={inValid}
       style={({pressed}) => [

@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post as HttpPost, Body, Get } from '@nestjs/common';
 import { PostService } from './post.service';
+import { CreatePostDto } from './dto/create-post.dto';
+import { Post as PostEntity } from './post.entity';
 
-@Controller()
+@Controller('post')
 export class PostController {
-  constructor(private postService: PostService) {}
+  constructor(private readonly postService: PostService) {}
 
-  @Get('/posts')
-  getPosts() {
-    return this.postService.getPosts();
+  @HttpPost()
+  create(@Body() createPostDto: CreatePostDto): Promise<PostEntity> {
+    return this.postService.create(createPostDto);
   }
+
+  // @Get()
+  // findAll(): Promise<PostEntity[]> {
+  //   return this.postService.findAll();
+  // }
 }

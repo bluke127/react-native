@@ -1,6 +1,8 @@
 import { PostService } from './post.service';
+import { CreatePostDto } from './dto/create-post.dto';
+import { Post as PostEntity } from './post.entity';
 export declare class PostController {
-    private postService;
+    private readonly postService;
     constructor(postService: PostService);
-    getPosts(): string[];
+    create(createPostDto: CreatePostDto): Promise<PostEntity>;
 }
